@@ -4,11 +4,11 @@ import { PiArrowsDownUp } from "react-icons/pi";
 export const TableHeader = <T,>({ headerGroups }: { headerGroups: HeaderGroup<T>[] }) => {
   return (
     <>
-      {headerGroups.map((headerGroup) => (
-        <tr key={headerGroup.id}>
-          {headerGroup.headers.map((header) => (
+      {headerGroups.map((headerGroup, i) => (
+        <tr key={i}>
+          {headerGroup.headers.map((header, i) => (
             <th
-              key={header.id}
+              key={i}
               className={`${header.column.getCanSort() ? "cursor-pointer" : ""} px-5 py-3 font-medium text-gray-500 text-start text-theme-sm dark:text-gray-400`}
               onClick={header.column.getToggleSortingHandler()}
             >

@@ -12,6 +12,7 @@ import {
 import Pagination from "../Pagination";
 import Label from "../../form/Label";
 import Input from "../../form/input/InputField";
+import Button, { ButtonProps } from "../../ui/button/Button";
 
 // ✅ Type untuk format data tabel
 type TableProps<T> = {
@@ -22,10 +23,10 @@ type TableProps<T> = {
   setSearch?: (value: string) => void; // Fungsi untuk mengubah nilai pencarian
   rowExpand?: (row: Row<T>) => React.ReactNode; // Fungsi untuk expandable row
   pagination?: boolean; // Aktifkan fitur pagination
-  searchBar?: boolean; // Aktifkan fitur pencarian
+  addButton?: ButtonProps[]; // Aktifkan fitur tambah data
 };
 
-const Table = <T,>({ data, columns, isLoading, search, setSearch, rowExpand, pagination = false, searchBar = false }: TableProps<T>) => {
+const Table = <T,>({ data, columns, isLoading, search, setSearch, rowExpand, pagination = false, addButton }: TableProps<T>) => {
   // ✅ State untuk sorting, expanding row, dan jumlah data per halaman
   const [sorting, setSorting] = useState<SortingState>([]);
   const [expanded, setExpanded] = useState<ExpandedState>({});
@@ -69,21 +70,33 @@ const Table = <T,>({ data, columns, isLoading, search, setSearch, rowExpand, pag
 
   return (
     <div className="overflow-x-auto">
-      {/* ✅ Input pencarian */}
-      {searchBar && setSearch && (
-        <div className="w-1/4">
-          <div>
-            <Label>Search</Label>
-            <Input
-              type="text"
-              className="p-2 mb-4"
-              placeholder="Cari data..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+      <div className="flex justify-between items-center">
+        {setSearch && (
+          <div className="w-1/4">
+            <div>
+              <Label>Search</Label>
+              <Input
+                type="text"
+                className="p-2 mb-4"
+                placeholder="Cari data..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+            </div>
           </div>
+        )}
+        <div className="flex space-x-4 items-center">
+          {addButton &&
+            addButton.map((button, index) => (
+              <Button
+                key={index}
+                {...button}
+              >
+                {button.children}
+              </Button>
+            ))}
         </div>
-      )}
+      </div>
 
       {/* ✅ Render tabel */}
       <div className="overflow-hidden rounded-xl border border-gray-200 bg-white dark:border-white/[0.05] dark:bg-white/[0.03]">

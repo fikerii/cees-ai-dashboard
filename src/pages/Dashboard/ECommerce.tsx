@@ -1,9 +1,9 @@
-import EcommerceMetrics from "../../components/ecommerce/EcommerceMetrics";
-import MonthlySalesChart from "../../components/ecommerce/MonthlySalesChart";
-import StatisticsChart from "../../components/ecommerce/StatisticsChart";
-import MonthlyTarget from "../../components/ecommerce/MonthlyTarget";
-import RecentOrders from "../../components/ecommerce/RecentOrders";
-import DemographicCard from "../../components/ecommerce/DemographicCard";
+import EcommerceMetrics from "../../features/ecommerce/EcommerceMetrics";
+import MonthlySalesChart from "../../features/ecommerce/MonthlySalesChart";
+import StatisticsChart from "../../features/ecommerce/StatisticsChart";
+import MonthlyTarget from "../../features/ecommerce/MonthlyTarget";
+import RecentOrders from "../../features/ecommerce/RecentOrders";
+import DemographicCard from "../../features/ecommerce/DemographicCard";
 import PageMeta from "../../components/common/PageMeta";
 
 export default function Ecommerce() {

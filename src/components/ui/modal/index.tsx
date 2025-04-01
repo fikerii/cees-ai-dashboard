@@ -1,12 +1,14 @@
 import React, { useRef, useEffect } from "react";
 
-interface ModalProps {
+export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   className?: string;
-  children: React.ReactNode;
+  children?: React.ReactNode;
   showCloseButton?: boolean; // New prop to control close button visibility
   isFullscreen?: boolean; // Default to false for backwards compatibility
+  size?: "sm" | "md" | "lg" | "xl";
+  isLoading?: boolean;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -16,6 +18,8 @@ export const Modal: React.FC<ModalProps> = ({
   className,
   showCloseButton = true, // Default to true for backwards compatibility
   isFullscreen = false,
+  size = "md",
+  isLoading,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -49,9 +53,34 @@ export const Modal: React.FC<ModalProps> = ({
 
   if (!isOpen) return null;
 
-  const contentClasses = isFullscreen
-    ? "w-full h-full"
-    : "relative w-full rounded-3xl bg-white  dark:bg-gray-900";
+  const contentClasses = isFullscreen ? "w-full h-full" : "relative w-full rounded-3xl bg-white  dark:bg-gray-900";
+
+  const sizeClasses = {
+    sm: "max-w-[500px]",
+    md: "max-w-[700px]",
+    lg: "max-w-[900px]",
+    xl: "max-w-[1200px]",
+  };
+
+  if (isLoading) {
+    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
+      {!isFullscreen && (
+        <div
+          className="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px]"
+          onClick={onClose}
+        ></div>
+      )}
+      <div
+        ref={modalRef}
+        className={`${contentClasses}  ${className} ${sizeClasses[size]} `}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[32px] flex items-center justify-center">
+          <div className="w-12 h-12 border-2 border-t-[#3b82f6] rounded-full animate-spin"></div>
+        </div>
+      </div>
+    </div>;
+  }
 
   return (
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
@@ -63,7 +92,7 @@ export const Modal: React.FC<ModalProps> = ({
       )}
       <div
         ref={modalRef}
-        className={`${contentClasses}  ${className}`}
+        className={`${contentClasses}  ${className} ${sizeClasses[size]} `}
         onClick={(e) => e.stopPropagation()}
       >
         {showCloseButton && (

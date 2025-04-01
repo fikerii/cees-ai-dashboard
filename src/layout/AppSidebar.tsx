@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router";
 
 // Assume these icons are imported from an icon library
 import { useSidebar } from "../context/SidebarContext";
-import { ChatIcon, ChevronDownIcon, GridIcon, HorizontaLDots, PlugInIcon, TableIcon, UserCircleIcon } from "../icons";
+import { ChatIcon, ChevronDownIcon, DocsIcon, GridIcon, HorizontaLDots, PlugInIcon, TableIcon, UserCircleIcon } from "../icons";
 type NavItem = {
   name: string;
   icon: React.ReactNode;
@@ -33,7 +33,13 @@ const navItems: NavItem[] = [
     subItems: [
       { name: "Basic Tables", path: "/basic-tables", pro: false },
       { name: "Tanstack Tables", path: "/tanstack-tables", pro: false },
+      { name: "Table Products", path: "/table-products", pro: false },
     ],
+  },
+  {
+    icon: <DocsIcon />,
+    name: "Library",
+    path: "/library",
   },
 ];
 

@@ -7,19 +7,14 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
-import { ThemeProvider } from "./context/ThemeContext";
-import { AppWrapper } from "./components/common/PageMeta";
+import { BrowserRouter } from "react-router";
 
-const root = ReactDOM.createRoot(
-  document.getElementById("root") as HTMLElement
-);
+const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 root.render(
   <React.StrictMode>
-    <AppWrapper>
-      <ThemeProvider>
-        <App />
-      </ThemeProvider>
-    </AppWrapper>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
   </React.StrictMode>
 );
 

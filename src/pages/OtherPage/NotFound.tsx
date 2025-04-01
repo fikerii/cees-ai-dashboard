@@ -1,8 +1,10 @@
 import GridShape from "../../components/common/GridShape";
-import { Link } from "react-router";
 import PageMeta from "../../components/common/PageMeta";
+import useGoBack from "../../hooks/useGoBack";
+import Button from "../../components/ui/button/Button";
 
 export default function NotFound() {
+  const goBack = useGoBack();
   return (
     <>
       <PageMeta
@@ -27,15 +29,15 @@ export default function NotFound() {
 
           <p className="mt-10 mb-6 text-base text-gray-700 dark:text-gray-400 sm:text-lg">We can’t seem to find the page you are looking for!</p>
 
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-lg border border-gray-300 bg-white px-5 py-3.5 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
+          <Button
+            onClick={goBack}
+            className="inline-flex items-center justify-center rounded-lg text-gray-700 border border-gray-300 bg-white px-5 py-3.5 text-sm font-medium shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200"
           >
-            Back to Home Page
-          </Link>
+            {/* <span className="text-gray-700 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200"> */}
+            Back to Previous Page
+            {/* </span> */}
+          </Button>
         </div>
-        {/* <!-- Footer --> */}
-        <p className="absolute text-sm text-center text-gray-500 -translate-x-1/2 bottom-6 left-1/2 dark:text-gray-400">&copy; {new Date().getFullYear()} - TailAdmin</p>
       </div>
     </>
   );

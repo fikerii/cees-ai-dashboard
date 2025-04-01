@@ -1,21 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export interface Option {
   value: string | number;
   label: string;
 }
 
-interface SelectProps {
+export interface SelectProps {
   options: Option[];
   placeholder?: string;
   onChange: (value: string) => void;
   className?: string;
   defaultValue?: string;
+  isLoading?: boolean;
 }
 
-const Select: React.FC<SelectProps> = ({ options, placeholder = "Select an option", onChange, className = "", defaultValue = "" }) => {
+const Select: React.FC<SelectProps> = ({ options, placeholder = "Select an option", onChange, className = "", defaultValue = "", isLoading = false }) => {
   // Manage the selected value
   const [selectedValue, setSelectedValue] = useState<string>(defaultValue);
+  useEffect(() => {
+    if (defaultValue !== "") setSelectedValue(defaultValue);
+  }, [defaultValue]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -30,6 +34,7 @@ const Select: React.FC<SelectProps> = ({ options, placeholder = "Select an optio
       } ${className}`}
       value={selectedValue}
       onChange={handleChange}
+      disabled={isLoading}
     >
       {/* Placeholder option */}
       <option

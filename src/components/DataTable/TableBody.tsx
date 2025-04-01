@@ -5,15 +5,15 @@ export const TableBody = <T,>({ tableRow, tableHeader, rowExpand }: { tableRow: 
   return (
     <>
       {tableRow.rows.length > 0 ? (
-        tableRow.rows.map((row) => (
-          <Fragment key={row.id}>
+        tableRow.rows.map((row, i) => (
+          <Fragment key={i}>
             <tr
-              key={row.id}
+              key={`row-${row.id || row.index}`}
               // className="border-b border-blue-gray-100"
             >
-              {row.getVisibleCells().map((cell) => (
+              {row.getVisibleCells().map((cell, i) => (
                 <td
-                  key={cell.id}
+                  key={i}
                   className="px-5 py-4 sm:px-6 text-start text-gray-500 text-theme-sm dark:text-gray-400"
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}
@@ -23,7 +23,7 @@ export const TableBody = <T,>({ tableRow, tableHeader, rowExpand }: { tableRow: 
             {rowExpand &&
               row.getIsExpanded() &&
               tableHeader.map((headerGroup) => (
-                <tr key={headerGroup.id}>
+                <tr key={`expand-${row.id}`}>
                   <td colSpan={headerGroup.headers.length}>{rowExpand(row)}</td>
                 </tr>
               ))}
